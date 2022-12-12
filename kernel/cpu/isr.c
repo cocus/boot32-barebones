@@ -159,7 +159,7 @@ void irq_handler(registers_t *r)
 void irq_install(void)
 {
 	/* IRQ0: timer */
-	install_timer(50);
+	install_timer(19);
 	/* IRQ1: keyboard */
 	install_kbd();
 }

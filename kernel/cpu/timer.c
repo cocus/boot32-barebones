@@ -17,11 +17,19 @@ static regs_t _regs;
 
 extern bool regs_update;
 
+void os_timer_tick(registers_t *regs)
+{
+	
+}
+
 /* Count ticks for timer.
  */
 static void timer_callback(registers_t *regs)
 {
 	_kernel_ticks++;
+
+
+	os_timer_tick(regs);
 
 	if(regs_update) { // Update registers
 		__asm__ __volatile__(
@@ -65,10 +73,12 @@ void install_timer(u32_t freq)
 	u8_t low = (u8_t)(divisor & 0xFF);
 	u8_t high = (u8_t)((divisor >> 8) & 0xFF);
 
+	disable();
 	// Send the command.
-	outb(0x43, 0x36); // Command port
+	outb(0x43, 0x36); // Command port (channel 0, access lo/hi, mode 3, 16 bit bin)
 	outb(0x40, low);
 	outb(0x40, high);
+	enable();
 
 	// Set register update state.
 	regs_update = true;

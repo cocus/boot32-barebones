@@ -82,8 +82,8 @@ DEF_FNC(regs)
 	// Display results.
 	kprintf("List of registers below...\n");
 	kprintf("==========================\n");
-	kprintf("EAX: 0x%x\nEBX: 0x%x\nECX: 0x%x\nEDX: 0x%x\nESI: 0x%x\nEDI: 0x%x\n",
-		regs->eax, regs->ebx, regs->ecx, regs->edx, regs->esi, regs->edi);
+	kprintf("EAX: 0x%x\nEBX: 0x%x\nECX: 0x%x\nEDX: 0x%x\nESI: 0x%x\nEDI: 0x%x\nESP: 0x%x, SS: 0x%x, ES: 0x%x, DS: 0x%x, CS: 0x%x, EBP: 0x%x\n",
+		regs->eax, regs->ebx, regs->ecx, regs->edx, regs->esi, regs->edi, regs->esp, regs->ss, regs->es, regs->ds, regs->cs, regs->ebp);
 }
 /* Logout command, quit the shell and return to login screen.
  */

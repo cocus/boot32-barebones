@@ -93,25 +93,38 @@ void kernel_main(void)
 	login_active = true;
 
 	// Initialize the terminal and install ISRs and IRQs.
-	term_init(BLUE, YELLOW);
+	term_init(BLACK, WHITE);
 	gdt_install();
 	isr_install();
 	irq_install();
 
 	// Display loading message and play music.
-	kprintf("Loading system! Please wait");
-	for(int i = 0; i < tsnd; i++) {
+	//kprintf("Loading system! Please wait");
+	/*for(int i = 0; i < tsnd; i++) {
 		sound(snd[i]);
 		delay(5);
 		sound(0);
 		sleep(1);
 		kputc('.');
-	}
+	}*/
 	sound(0);
-	clear_screen();
+	//clear_screen();
 	
 	// Display welcome message to user and prompt.
-	kprintf(WELCOME_MESSAGE);
+	//kprintf(WELCOME_MESSAGE);
+	kprintf("on %s()\n", __func__ );
+
+	u32_t last = get_timer_ticks();
+
+	/*while(1)
+	{
+		if (last != get_timer_ticks())
+		{
+			last = get_timer_ticks();
+			kprintf("New ticks: %d\n", last);
+		}
+	}*/
+
 	for(;;) {
 		get_command(key_buffer, sizeof(key_buffer));
 

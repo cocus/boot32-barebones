@@ -158,6 +158,6 @@ void term_init(unsigned char bg, unsigned char fg)
 		_term_init = 1;
 		_text_attr = make_attr(bg, fg);
 		vga_buffer = (void*)VGA_ADDRESS;
-		clear_screen();
+		//clear_screen();
 	}
 }
