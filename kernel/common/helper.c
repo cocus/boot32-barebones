@@ -63,20 +63,20 @@ void reverse(char *s)
 }
 /* Convert integer to c-string.
  */
-void itoa(unsigned n, unsigned base, char *s, int size)
+void itoa ( int value, char * s, int base, int size )
 {
 	int opos, pos, top;
 	
 	/* Check bounds */
-	if(n == 0 || base > 16) {
+	if(value == 0 || base > 16) {
 		s[0] = '0';
 		s[1] = 0;
 		return;
 	}
 	
 	/* Fill itoa buffer */
-	for(pos = 0; n != 0; n /= 10, pos++)
-		_itoa[pos] = ((char*)_hexdigits)[n % base];
+	for(pos = 0; value != 0; value /= 10, pos++)
+		_itoa[pos] = ((char*)_hexdigits)[value % base];
 	/* Read itoa buffer backwards */
 	for(opos = 0, top = pos--; opos < size && opos < top; pos--,opos++)
 		s[opos] = _itoa[pos];
@@ -91,7 +91,7 @@ void itoa_s(int n, unsigned base, char *buf, int size)
 		buf[0] = '-';
 		buf[1] = 0;
 	}
-	itoa(n, base, buf, size);
+	itoa(n, buf, base, size);
 }
 
 /* ----------------------- Helper Functions ---------------------- */

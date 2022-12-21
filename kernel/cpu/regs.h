@@ -19,4 +19,6 @@ typedef struct tagREG32 {
 	u32_t cs, ss, ds, es, cflag, eflag;
 } regs_t;
 
+void read_current_regs(regs_t * to);
+
 #endif

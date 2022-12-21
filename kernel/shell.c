@@ -108,10 +108,6 @@ DEF_FNC(version)
 	kprintf("Barebones Operating System ");
 	for(int i = 0; i < strlen(msg); i++) {
 		kputc(msg[i]);
-		sound(1000);
-		delay(10);
-		sound(0);
-		delay(8);
 	}
 	kprintf("\nDate created: June 25, 2020.\n");
 	kprintf("Written by Philip R. Simonson.\n\n");

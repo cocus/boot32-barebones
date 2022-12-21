@@ -32,6 +32,7 @@ extern int strstrip(char *s);
 extern int strcmp(const char *s, const char *t);
 extern void reverse(char *s);
 extern void itoa_s(int n, unsigned base, char *s, int size);
+void itoa ( int value, char * s, int base, int size );
 
 /* Functions for kernel. */
 extern void delay(unsigned int ticks);

@@ -3,6 +3,7 @@
 *.elf
 *.bak
 *.img
+*.map
 imgwrite/imgwrite
 imagefs/imagefs
 prsfs/prsfs

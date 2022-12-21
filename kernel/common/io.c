@@ -135,7 +135,7 @@ int kprintf(const char *format, ...)
 			char str[32] = {0};
 			unsigned len;
 
-			itoa_s(c, 16, str, 32);
+			itoa(c, str, 16, 32);
 			len = strlen(str);
 			if(maxrem < len) {
 				/* TODO: Set errno to EOVERFLOW. */

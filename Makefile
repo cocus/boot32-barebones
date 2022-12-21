@@ -27,7 +27,7 @@ all:
 	cd $(SRCDIR)/imgwrite && $(MAKE)
 
 run: disk
-	qemu-system-i386 -fda $(SRCDIR)/floppy.img -boot a -soundhw pcspk
+	qemu-system-i386 -fda $(SRCDIR)/floppy.img -boot a -s -S -soundhw pcspk
 
 debug: disk
 	qemu-system-i386 -fda $(SRCDIR)/floppy.img -boot a -s &
