@@ -11,6 +11,7 @@
 #include "timer.h"
 #include "ports.h"
 #include "isr.h"
+#include "system.h"
 
 static u32_t _kernel_ticks = 0;
 static regs_t _regs;
