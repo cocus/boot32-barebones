@@ -7,31 +7,38 @@ CFLAGS=-std=c11 -Wall -O0 -pedantic -g -fvar-tracking -m32 \
 	-I. -I./drivers -I./common -I./cpu
 LDFLAGS=
 BACKUPS=$(shell find . -iname "*.bak")
-OBJECTS=entry.asm.o cpu/int.asm.o cpu/gen_interrupt.asm.o cpu/gdt_flush.asm.o
+OBJECTS=entry.o cpu/int.o cpu/gen_interrupt.o cpu/gdt_flush.o
 OBJECTS+=\
-	kernel.c.o shell.c.o common/io.c.o common/helper.c.o \
-	common/util.c.o drivers/vga.c.o drivers/keyboard.c.o \
-	cpu/idt.c.o cpu/isr.c.o	cpu/system.c.o cpu/ports.c.o \
-	cpu/regs.c.o cpu/timer.c.o cpu/gdt.c.o
-TARGET=kernel.bin
+	kernel.o shell.o common/io.o common/helper.o \
+	common/util.o drivers/vga.o drivers/keyboard.o \
+	cpu/idt.o cpu/isr.o	cpu/system.o cpu/ports.o \
+	cpu/regs.o cpu/timer.o cpu/gdt.o
+
+TARGET=kernel
+TARGET_BIN=$(TARGET).bin
+TARGET_ELF=$(TARGET).elf
 
 .PHONY: all clean distclean
-all: $(TARGET)
+all: $(TARGET_BIN)
 
-%.asm.o: %.asm
-	$(AS) $(AFLAGS) -o $@ $<
+%.o: %.asm
+	@echo " AS $<"
+	@$(AS) $(AFLAGS) -o $@ $<
 
-%.c.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+%.o: %.c
+	@echo " CC $<"
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
-$(TARGET): kernel.elf
-	objcopy -O binary kernel.elf $@
+$(TARGET_BIN): $(TARGET_ELF)
+	@echo " ELF2BIN $@"
+	@objcopy -O binary $(TARGET_ELF) $@
 
-kernel.elf: $(OBJECTS)
-	$(LD) $(LDFLAGS) -Map=kernel.map -Tlink.ld -o $@ $(OBJECTS)
+$(TARGET_ELF): $(OBJECTS)
+	@echo " LD $@"
+	@$(LD) $(LDFLAGS) -Map=$(TARGET).map -Tlink.ld -o $@ $(OBJECTS)
 
 clean:
-	rm -f $(OBJECTS) $(TARGET) *.elf
+	rm -f $(OBJECTS) $(TARGET_BIN) *.elf
 
 distclean: clean
 ifneq ($(BACKUPS),)
