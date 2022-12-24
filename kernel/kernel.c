@@ -81,6 +81,8 @@ void get_command(char *buf, int size)
 		buf[i] = '\0';
 }
 
+char task_buffer[512] = { 0 };
+
 
 /* Entry point for kernel.
  */
@@ -116,20 +118,13 @@ void kernel_main(void)
 	//kprintf(WELCOME_MESSAGE);
 	kprintf("on %s()\n", __func__ );
 
-
-	char buff[32] = { 0 };
-	itoa(6969, buff, 10, sizeof(buff));
-	kputs(buff);
-
-
-	//kprintf("task_buffer at 0x%x\n", task_buffer);
+	kprintf("task_buffer at 0x%x\n", task_buffer);
 
 	regs_t regs = { 0 };
-	read_current_regs(&regs);
-	/*kprintf("EAX: 0x%d\nEBX: 0x%x\nECX: 0x%x\nEDX: 0x%x\nESI: 0x%x\nEDI: 0x%x\nESP: 0x%x, SS: 0x%x, ES: 0x%x, DS: 0x%x, CS: 0x%x, EBP: 0x%x\n",
-		regs.eax, regs.ebx, regs.ecx, regs.edx, regs.esi, regs.edi, regs.esp, regs.ss, regs.es, regs.ds, regs.cs, regs.ebp);
+	READ_CURRENT_REGS(&regs);
+	kprintf("EAX: 0x%x %d\nEBX: 0x%x %d\nECX: 0x%x %d\nEDX: 0x%x %d\nESI: 0x%x %d\nEDI: 0x%x %d\nESP: 0x%x %d, SS: 0x%x %d, ES: 0x%x %d, DS: 0x%x %d, CS: 0x%x %d, EBP: 0x%x %d\n",
+		regs.eax, regs.eax, regs.ebx, regs.ebx, regs.ecx, regs.ecx, regs.edx, regs.edx, regs.esi, regs.esi, regs.edi, regs.edi, regs.esp, regs.esp, regs.ss, regs.ss, regs.es, regs.es, regs.ds, regs.ds, regs.cs, regs.cs, regs.ebp, regs.ebp);
 
-*/
 	u32_t last = get_timer_ticks();
 
 	/*while(1)

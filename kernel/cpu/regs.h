@@ -19,6 +19,12 @@ typedef struct tagREG32 {
 	u32_t cs, ss, ds, es, cflag, eflag;
 } regs_t;
 
-void read_current_regs(regs_t * to);
+#define READ_CURRENT_REGS(to) \
+{    __asm__ __volatile__( \
+        "" \
+        : "=a"((to)->eax), "=b"((to)->ebx), "=c"((to)->ecx), "=d"((to)->edx), \
+        "=S"((to)->esi), "=D"((to)->edi) \
+    ); \
+}
 
 #endif
