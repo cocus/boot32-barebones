@@ -12,7 +12,7 @@ OBJECTS+=\
 	kernel.o shell.o common/io.o common/helper.o \
 	common/util.o drivers/vga.o drivers/keyboard.o \
 	cpu/idt.o cpu/isr.o	cpu/system.o cpu/ports.o \
-	cpu/regs.o cpu/timer.o cpu/gdt.o
+	cpu/regs.o cpu/task.o cpu/timer.o cpu/gdt.o
 
 TARGET=kernel
 TARGET_BIN=$(TARGET).bin

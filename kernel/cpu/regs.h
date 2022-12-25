@@ -27,4 +27,21 @@ typedef struct tagREG32 {
     ); \
 }
 
+
+/* A saved stack frame is completely defined by a pointer to the top of the
+ * stack frame. */
+typedef void *frame_t;
+
+/* The action performed for a new frame takes two arguments: the context
+ * argument passed to create_frame() when this frame was first established and
+ * the argument passed to the first activating switch_frame() call.
+ *
+ * This routine must never return. */
+typedef __attribute__((noreturn))
+    void (*frame_action_t)(void *arg, void *context);
+
+/* Switch to new_frame, previously established by create_frame() or an earlier
+ * switch_frame().  The caller's stack frame is written to *old_frame. */
+void * switch_frame(frame_t *old_frame, frame_t new_frame, void *arg);
+
 #endif
